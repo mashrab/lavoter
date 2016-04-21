@@ -8,7 +8,6 @@
             "email": "mokhirzhon@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.11",
         "illuminate/database": "~5.1|~5.2",
