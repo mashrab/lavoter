@@ -1,0 +1,11 @@
+{
+    "name": "zvermafia/lavoter",
+    "authors": [
+        {
+            "name": "Mokhirzhon Naimov",
+            "email": "mokhirzhon@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
