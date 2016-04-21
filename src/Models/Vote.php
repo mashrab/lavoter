@@ -116,6 +116,7 @@ class Vote extends Model
         return static::cast($voteable, 1, $uuide);
     }
 
+
     /**
      * @param Model $voteable
      * @param string $uuide
@@ -125,6 +126,45 @@ class Vote extends Model
     public static function down(Model $voteable, $uuide = null)
     {
         return static::cast($voteable, -1, $uuide);
+    }
+
+    /**
+     * @param  Model   $voteable
+     * @param  string  $uuide
+     * @param  integer $value
+     * 
+     * @return boolean
+     */
+    public static function isAlreadyVoted(Model $voteable, $uuide = null, $value = 1)
+    {
+        $item = $voteable->votes()
+                         ->where('uuide', $uuide)
+                         ->where('value', $value)
+                         ->first();
+
+        return $item ? true : false;
+    }
+
+    /**
+     * @param  Model   $voteable
+     * @param  string  $uuide
+     * 
+     * @return boolean
+     */
+    public static function isAlreadyVotedUp(Model $voteable, $uuide = null)
+    {
+        return static::isAlreadyVoted($voteable, $uuide, 1);
+    }
+
+    /**
+     * @param  Model   $voteable
+     * @param  string  $uuide
+     * 
+     * @return boolean
+     */
+    public static function isAlreadyVotedDown(Model $voteable, $uuide = null)
+    {
+        return static::isAlreadyVoted($voteable, $uuide, -1);
     }
 
     /**
