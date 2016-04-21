@@ -3,7 +3,7 @@
 <script>
     
     function uuideCreate (ec) {
-        $.post('/lavoter/uuide-create', {}, function (response) {
+        $.post('/lavoter/uuide-create', {_token: "{{ csrf_token() }}"}, function (response) {
             if (response.status == 'success' && response.length == response.uuide.length) {
                 ec.set('uuide', response.uuide);
 
@@ -17,7 +17,7 @@
     }
 
     function uuideCheck (ec, uuide) {
-        $.post('/lavoter/uuide-check/' + uuide, {}, function (response) {
+        $.post('/lavoter/uuide-check/' + uuide, {_token: "{{ csrf_token() }}"}, function (response) {
             if (response.status == 'success' && response.length == response.uuide.length) {
                 ec.set('uuide', response.uuide);
 
