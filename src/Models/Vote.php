@@ -193,6 +193,16 @@ class Vote extends Model
             'uuide'         => $uuide,
         ]);
 
+        /**
+         * If step_back parameter is ture
+         */
+        if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value)
+        {
+            $vote->delete();
+
+            return null;
+        }
+
         $vote->value = $value;
 
         return $vote->voteable()

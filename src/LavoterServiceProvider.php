@@ -19,6 +19,13 @@ class LavoterServiceProvider extends ServiceProvider
     public function boot()
     {
         /**
+         * Config
+         */
+        $this->publishes([
+            __DIR__ . '/config/lavoter.php' => config_path('lavoter.php'),
+        ]);
+
+        /**
          * Migrations
          */
         $this->publishes([
@@ -31,6 +38,11 @@ class LavoterServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             require __DIR__ . '/routes.php';
         }
+
+        /**
+         * Views
+         */
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lavoter');
         
         /**
          * Assets
@@ -38,11 +50,6 @@ class LavoterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../public/vendor/lavoter' => public_path('vendor/lavoter'),
         ], 'public');
-
-        /**
-         * Views
-         */
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lavoter');
     }
 
     /**
@@ -52,6 +59,13 @@ class LavoterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        /**
+         * Merge config
+         */
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/lavoter.php', 'lavoter'
+        );
+
         /**
          * Controllers
          */
