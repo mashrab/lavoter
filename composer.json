@@ -1,5 +1,7 @@
 {
     "name": "zvermafia/lavoter",
+    "description": "Voteable Polymorphic Eloquent Models for Laravel 5 without user authentication",
+    "license": "MIT",
     "authors": [
         {
             "name": "Mokhirzhon Naimov",
@@ -7,5 +9,14 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": ">=5.5.11",
+        "illuminate/database": "~5.1|~5.2",
+        "webpatser/laravel-uuid": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zvermafia\\Lavoter\\": "src/"
+        }
+    }
 }
