@@ -204,9 +204,21 @@ class Vote extends Model
         }
 
         $vote->value = $value;
-
-        return $vote->voteable()
+        $vote = $vote->voteable()
                     ->associate($voteable)
                     ->save();
+
+        /**
+         * If the given model has a vote_total column
+         * then fill it with aggregate function sum('value')
+         */
+        if (\Schema::hasColumn($voteable->getTable(), 'vote_total'))
+        {
+            $voteable = $voteable->fresh(['votes']);
+            $voteable->vote_total = $voteable->votes->sum('value');
+            $voteable->save();
+        }
+
+        return $vote;
     }
 }
