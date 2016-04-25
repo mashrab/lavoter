@@ -2,22 +2,40 @@
 <script src="{{ asset('vendor/lavoter/js/evercookie.js') }}"></script>
 <script>
     
+    /* Create uuide (uuid evercookie) */
     function uuideCreate (ec) {
-        $.post('/lavoter/uuide-create', {_token: "{{ csrf_token() }}"}, function (response) {
+        $.ajax({
+            url: '/lavoter/uuide-create',
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            dataType: 'json'
+        })
+        .success(function (response) {
             if (response.status == 'success' && response.length == response.uuide.length) {
                 ec.set('uuide', response.uuide);
-
-                window.UUIDE =  response.uuide;
+                window.UUIDE = response.uuide;
             } else {
                 console.log('Lavoter: something went wrong.')
             }
-        }).fail(function () {
+        })
+        .fail(function (response) {
             console.log('A POST request has been failed (Lavoter: uuideCreate).');
         });
     }
 
+    /* Check uuide (uuid evercookie) */
     function uuideCheck (ec, uuide) {
-        $.post('/lavoter/uuide-check/' + uuide, {_token: "{{ csrf_token() }}"}, function (response) {
+        $.ajax({
+            url: '/lavoter/uuide-check/' + uuide,
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            dataType: 'json'
+        })
+        .success(function (response) {
             if (response.status == 'success' && response.length == response.uuide.length) {
                 ec.set('uuide', response.uuide);
 
@@ -25,19 +43,25 @@
             } else {
                 console.log('Lavoter: something went wrong.')
             }
-        }).fail(function () {
+        })
+        .fail(function (response) {
             console.log('A POST request has been failed (Lavoter: uuideCheck).');
         });
     }
 
-    var evercookie = evercookie || function(){console.log('The evercookie doen\'t loaded...')};
+    /* Check evercookie is loaded */
+    var evercookie = evercookie || function () {
+        console.log('The evercookie doesn\'t loaded...');
+    };
 
+    /* Evercookie initializaion */
     var ec = new evercookie({
         baseurl:  "{{ url('/') }}",
         asseturi: "/vendor/lavoter/assets",
         phpuri:   "/vendor/lavoter/php"
     });
 
+    /* Run create/check uuide methods (detect a user) */
     ec.get('uuide', function (value) {
         if( ! value || value.toString().length <= 0) {
             uuideCreate(ec);
