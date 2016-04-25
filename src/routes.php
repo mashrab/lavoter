@@ -17,4 +17,12 @@ Route::group(['prefix' => 'lavoter', 'as' => 'lavoter.', 'namespace' => 'Zvermaf
 		'as'   => 'check',
 		'uses' => 'LavoterController@сheck',
 	]);
+
+	/**
+	 * Check
+	 */
+	Route::get('show', [
+		'as'   => 'show',
+		'uses' => 'LavoterController@show',
+	]);
 });

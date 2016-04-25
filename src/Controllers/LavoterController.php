@@ -2,12 +2,18 @@
 
 namespace Zvermafia\Lavoter\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Webpatser\Uuid\Uuid;
 use Zvermafia\Lavoter\Models\Uuide;
 
 class LavoterController extends Controller
 {
+	/**
+	 * Create and store a new uuide
+	 * 
+	 * @return Illuminate\Http\Response
+	 */
 	public function create()
 	{
 		$item = Uuide::create([
@@ -35,6 +41,11 @@ class LavoterController extends Controller
 		return response()->json($response);
 	}
 
+	/**
+	 * Check a given uuide to exists in DB
+	 * 
+	 * @return Illuminate\Http\Response
+	 */
 	public function check($uuide = null)
 	{
 		if ( ! $uuide)
@@ -66,5 +77,22 @@ class LavoterController extends Controller
 		}
 
 		return response()->json($response);
+	}
+
+	/**
+	 * Showing current user's uuide page
+	 * 
+	 * @return Illuminate\Http\Response
+	 */
+	public function show(Request $request)
+	{
+		if ( ! config('app.debug') && ! config('lavoter.page_show'))
+		{
+			abort(404);
+		}
+
+		$uuide = $request->cookie('uuide') ? $request->cookie('uuide') : 'undefined';
+
+		return view('lavoter::show', compact('uuide'));
 	}
 }
