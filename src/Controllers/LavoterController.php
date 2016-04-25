@@ -8,7 +8,7 @@ use Zvermafia\Lavoter\Models\Uuide;
 
 class LavoterController extends Controller
 {
-	public function uuideCreate()
+	public function create()
 	{
 		$item = Uuide::create([
 			'uuide' => Uuid::generate(4),
@@ -35,7 +35,7 @@ class LavoterController extends Controller
 		return response()->json($response);
 	}
 
-	public function uuideCheck($uuide = null)
+	public function check($uuide = null)
 	{
 		if ( ! $uuide)
 		{

@@ -5,10 +5,10 @@
     /* Create uuide (uuid evercookie) */
     function uuideCreate (ec) {
         $.ajax({
-            url: '/lavoter/uuide-create',
+            url: '{{ route("lavoter.create") }}',
             type: 'POST',
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: '{{ csrf_token() }}'
             },
             dataType: 'json'
         })
@@ -28,10 +28,10 @@
     /* Check uuide (uuid evercookie) */
     function uuideCheck (ec, uuide) {
         $.ajax({
-            url: '/lavoter/uuide-check/' + uuide,
+            url: '{{ route("lavoter.check") }}' + '/' + uuide,
             type: 'POST',
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: '{{ csrf_token() }}'
             },
             dataType: 'json'
         })
@@ -57,8 +57,8 @@
     /* Evercookie initializaion */
     var ec = new evercookie({
         baseurl:  "{{ url('/') }}",
-        asseturi: "/vendor/lavoter/assets",
-        phpuri:   "/vendor/lavoter/php"
+        asseturi: "{{ url('/vendor/lavoter/assets') }}",
+        phpuri:   "{{ url('/vendor/lavoter/php') }}"
     });
 
     /* Run create/check uuide methods (detect a user) */

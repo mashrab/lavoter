@@ -1,7 +1,20 @@
 <?php
 
-Route::group(['prefix' => 'lavoter', 'namespace' => 'Zvermafia\Lavoter\Controllers'], function ()
+Route::group(['prefix' => 'lavoter', 'as' => 'lavoter.', 'namespace' => 'Zvermafia\Lavoter\Controllers'], function ()
 {
-	Route::post('uuide-create/', 'LavoterController@uuideCreate');
-	Route::post('uuide-check/{uuide?}', 'LavoterController@uuideCheck');
+	/**
+	 * Create
+	 */
+	Route::post('create', [
+		'as'   => 'create',
+		'uses' => 'LavoterController@create',
+	]);
+
+	/**
+	 * Check
+	 */
+	Route::post('check/{uuide?}', [
+		'as'   => 'check',
+		'uses' => 'LavoterController@сheck',
+	]);
 });
