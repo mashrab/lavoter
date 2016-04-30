@@ -90,8 +90,8 @@
             /* Evercookie initializaion */
             var ec = new evercookie({
                 baseurl:  "{{ url('/') }}",
-                asseturi: "{{ url('/vendor/lavoter/assets') }}",
-                phpuri:   "{{ url('/vendor/lavoter/php') }}"
+                asseturi: "/vendor/lavoter/assets",
+                phpuri:   "/vendor/lavoter/php"
             });
 
             /* Run create/check uuide methods (detect a user) */
