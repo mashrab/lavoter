@@ -100,22 +100,22 @@ use Zvermafia\Lavoter\Models\Vote;
 Vote::sum($article);
 
 // Count all votes
-Vote::count($user);
+Vote::count($article);
 
 // Count all up-votes
-Vote::countUps($user);
+Vote::countUps($article);
 
 // Count all down-votes
-Vote::countDowns($user);
+Vote::countDowns($article);
 
 // Count all votes between two dates
-Vote::countByDate($user, '2015-06-30', '2015-06-31');
+Vote::countByDate($article, '2015-06-30', '2015-06-31');
 
 // Up-vote
-Vote::up($user);
+Vote::up($article);
 
 // Down-vote
-Vote::down($user);
+Vote::down($article);
 ```
 
 In views you can use features which are realized in Voteable trait. For example:
