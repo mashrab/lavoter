@@ -54,20 +54,19 @@
         console.log('The evercookie doesn\'t loaded...');
     };
 
-    /* Evercookie initializaion */
+    /* Evercookie initialization */
     var ec = new evercookie({
         baseurl:  "{{ url('/') }}",
         asseturi: "/vendor/lavoter/assets",
         phpuri:   "/vendor/lavoter/php"
     });
 
-    /* Run create/check uuide methods (detect a user) */
+    /* Run create/check uuide methods (detect an user) */
     ec.get('uuide', function (value) {
-        if( ! value || value.toString().length <= 0) {
+        if( ! value || value.toString().length <= 0)
             uuideCreate(ec);
-        } else {
+        else
             uuideCheck(ec, value);
-        }
 
         $(document).trigger('evercookie.load');
     });
