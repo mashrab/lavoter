@@ -4,95 +4,42 @@ namespace Zvermafia\Lavoter\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Webpatser\Uuid\Uuid;
-use Zvermafia\Lavoter\Models\Uuide;
+use Zvermafia\Lavoter\Models\Uuid;
 
 class LavoterController extends Controller
 {
 	/**
-	 * Create and store a new uuide
+	 * @var \Zvermafia\Lavoter\Models\Uuid
+	 */
+	private $uuids;
+
+	/**
+	 * Magic method.
+	 * 
+	 * @param \Zvermafia\Lavoter\Models\Uuid $uuids
+	 *
+	 * @return void
+	 */
+	public function __construct(Uuid $uuids)
+	{
+		$this->uuids = $uuids;
+	}
+
+	/**
+	 * Check a given uuid to exists in DB
+	 * or create if the uuid isn't exists in DB
+	 *
+	 * @param  \Illuminate\Http\Request $request
 	 * 
 	 * @return Illuminate\Http\Response
 	 */
-	public function create()
+	public function сheckOrCreate(Request $request)
 	{
-		$item = Uuide::create([
-			'uuide' => Uuid::generate(4),
+		$item = $this->uuids->firstOrCreate(['uuid' => $request->uuid]);
+
+		return response()->json([
+			'status' => 'success',
+			'uuid'   => $request->uuid,
 		]);
-
-		$response = [];
-
-		if ($item)
-		{
-			$response = [
-				'status' => 'success',
-				'length' => strlen($item->uuide),
-				'uuide'  => $item->uuide,
-			];
-		}
-		else
-		{
-			$response = [
-				'status'  => 'fail',
-				'message' => 'Something went wrong.',
-			];
-		}
-
-		return response()->json($response);
-	}
-
-	/**
-	 * Check a given uuide to exists in DB
-	 * 
-	 * @return Illuminate\Http\Response
-	 */
-	public function check($uuide = null)
-	{
-		if ( ! $uuide)
-		{
-			$response = [
-				'status'  => 'false',
-				'message' => 'The uuide parameter is reuqired.',
-			];
-
-			return response()->json($response);
-		}
-
-		$item = Uuide::firstOrCreate(['uuide' => $uuide]);
-
-		if ($item)
-		{
-			$response = [
-				'status'  => 'success',
-				'length' => strlen($item->uuide),
-				'uuide'  => $item->uuide,
-			];
-		}
-		else
-		{
-			$response = [
-				'status'  => 'false',
-				'message' => 'Someting went wrong.',
-			];
-		}
-
-		return response()->json($response);
-	}
-
-	/**
-	 * Showing current user's uuide page
-	 * 
-	 * @return Illuminate\Http\Response
-	 */
-	public function show(Request $request)
-	{
-		if ( ! config('app.debug') && ! config('lavoter.page_show'))
-		{
-			abort(404);
-		}
-
-		$uuide = $request->cookie('uuide') ? $request->cookie('uuide') : 'undefined';
-
-		return view('lavoter::show', compact('uuide'));
 	}
 }

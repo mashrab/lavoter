@@ -5,19 +5,19 @@ namespace Zvermafia\Lavoter\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Uuide.
+ * Class Uuid.
  */
-class Uuide extends Model
+class Uuid extends Model
 {
 	/**
 	 * @var string
 	 */
-	protected $table = 'lavoter_uuides';
+	protected $table = 'lavoter_uuids';
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = ['uuide'];
+	protected $fillable = ['uuid'];
 
     /**
      * @var array
@@ -45,12 +45,12 @@ class Uuide extends Model
 	}
 
     /**
-     * Get the model's uuide property.
+     * Get the model's uuid property.
      * 
      * @return string
      */
-	public function getUuideAttribute()
+	public function getUuidAttribute()
 	{
-		return (string) $this->attributes['uuide'];
+		return (string) $this->attributes['uuid'];
 	}
 }

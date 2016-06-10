@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLavoterUuidesTable extends Migration
+class CreateLavoterUuidsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class CreateLavoterUuidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lavoter_uuides', function (Blueprint $table) {
-            $table->string('uuide')->unique()->index();
+        Schema::create('lavoter_uuids', function (Blueprint $table) {
+            $table->string('uuid')->unique()->index();
             $table->timestamp('created_at');
         });
     }
@@ -25,6 +25,6 @@ class CreateLavoterUuidesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lavoter_uuides');
+        Schema::drop('lavoter_uuids');
     }
 }

@@ -15,10 +15,10 @@ class CreateLavoterVotesTable extends Migration
         Schema::create('lavoter_votes', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('voteable');
-            $table->string('uuide')->index();
+            $table->string('uuid')->index();
             $table->integer('value');
             $table->timestamps();
-            $table->unique(['voteable_id', 'voteable_type', 'uuide']);
+            $table->unique(['voteable_id', 'voteable_type', 'uuid']);
         });
     }
 

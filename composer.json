@@ -10,8 +10,7 @@
     ],
     "require": {
         "php": ">=5.5.11",
-        "illuminate/database": "~5.1|~5.2",
-        "webpatser/laravel-uuid": "2.*"
+        "illuminate/database": "~5.1|~5.2"
     },
     "autoload": {
         "psr-4": {
