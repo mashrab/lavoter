@@ -13,7 +13,7 @@ Include the service provider within `config/app.php`.
 
 ```php
 'providers' => [
-    ...
+    // ...
     Zvermafia\Lavoter\LavoterServiceProvider::class
 ],
 ```
@@ -32,18 +32,18 @@ For example:
 <!-- Let's imagine this is a base template for your frontend section -->
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	    <title>@yield('title', 'The App Name')</title>
-	</head>
-	<body>
-	    @yield('body')
+    <head>
+        <title>@yield('title', 'The App Name')</title>
+    </head>
+    <body>
+        @yield('body')
 
-	    <!-- Don't forget jQuery must be included too  -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	    
-	    <!-- And here a view part of this package -->
-	    @include('lavoter::get')
-	</body>
+        <!-- Don't forget jQuery must be included too  -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        
+        <!-- And here a view part of this package -->
+        @include('lavoter::get')
+    </body>
 </html>
 ```
 
@@ -70,10 +70,8 @@ class EncryptCookies extends BaseEncrypter
 }
 ```
 
+## Setup a Model
 
------
-
-### Setup a Model
 ```php
 <?php
 
@@ -90,7 +88,7 @@ class Article extends Model implements Voteable
 
 ```
 
-### Usage
+## Usage
 
 ```php
 // Before you need to import a Vote model
@@ -118,8 +116,22 @@ Vote::up($article);
 Vote::down($article);
 ```
 
-In views you can use features which are realized in Voteable trait. For example:
 
+## Accessors
+For convenience you can use accessors below which are realized in Voteable trait:
+
+```php
+// ...
+$article = Article::first();
+// ...
+
+$article->vote_ups; // To get count of the all vote ups
+$article->vote_total; // To get count of total votes
+$article->vote_downs; // To get count of the all vote downs
+
+```
+
+For exmaple:
 ```html
 @forelse($articles as $article)
     <article>
