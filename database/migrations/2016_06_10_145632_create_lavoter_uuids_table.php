@@ -12,7 +12,8 @@ class CreateLavoterUuidsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lavoter_uuids', function (Blueprint $table) {
+        Schema::create('lavoter_uuids', function (Blueprint $table)
+        {
             $table->string('uuid')->unique()->index();
             $table->timestamp('created_at');
         });

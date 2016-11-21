@@ -12,12 +12,14 @@ class CreateLavoterVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lavoter_votes', function (Blueprint $table) {
+        Schema::create('lavoter_votes', function (Blueprint $table)
+        {
             $table->increments('id');
-            $table->morphs('voteable');
+            $table->morphs('voteable'); // voteable_id and voteable_type columns
             $table->string('uuid')->index();
             $table->integer('value');
             $table->timestamps();
+
             $table->unique(['voteable_id', 'voteable_type', 'uuid']);
         });
     }
