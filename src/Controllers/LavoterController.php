@@ -38,8 +38,7 @@ class LavoterController extends Controller
 		$item = $this->uuids->firstOrCreate(['uuid' => $request->uuid]);
 
 		return response()->json([
-			'status' => 'success',
-			'uuid'   => $request->uuid,
-		]);
+			'uuid' => $request->uuid,
+		], 200);
 	}
 }
