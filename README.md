@@ -26,7 +26,7 @@ php artisan vendor:publish --provider="Zvermafia\Lavoter\LavoterServiceProvider"
 php artisan migrate
 ```
 
-To initialization the fingerprintjs2 and set uuid for the user you must to include a view part of this package to your site template for frontend section.
+To initialization the fingerprintjs2 and set uuid for the user you must to include a view part of this package to your site template for frontend section. After initialization will be declared a global JavaScript variable with the name `lavoter_uuid`.
 For example:
 
 ```html
