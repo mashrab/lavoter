@@ -1,5 +1,6 @@
 # Lavoter
 Voteable Polymorphic Eloquent Models for Laravel 5 without user authentication.
+This means that for the identification of the user, we will use the [fingerprintjs2](http://valve.github.io/fingerprintjs2/) instead of authorization on the site.
 
 ## Installation
 
@@ -25,7 +26,7 @@ php artisan vendor:publish --provider="Zvermafia\Lavoter\LavoterServiceProvider"
 php artisan migrate
 ```
 
-You must to include a view part of this package to your site template for frontend section.
+To initialization the fingerprintjs2 and set uuid for the user you must to include a view part of this package to your site template for frontend section.
 For example:
 
 ```html
@@ -94,26 +95,11 @@ class Article extends Model implements Voteable
 // Before you need to import a Vote model
 use Zvermafia\Lavoter\Models\Vote;
 
-// Sum of all votes
-Vote::sum($article);
-
-// Count all votes
-Vote::count($article);
-
-// Count all up-votes
-Vote::countUps($article);
-
-// Count all down-votes
-Vote::countDowns($article);
-
-// Count all votes between two dates
-Vote::countByDate($article, '2015-06-30', '2015-06-31');
-
 // Up-vote
-Vote::up($article);
+Vote::up($article, $uuid);
 
 // Down-vote
-Vote::down($article);
+Vote::down($article, $uuid);
 ```
 
 
