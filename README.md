@@ -26,7 +26,8 @@ php artisan vendor:publish --provider="Zvermafia\Lavoter\LavoterServiceProvider"
 php artisan migrate
 ```
 
-To initialization the fingerprintjs2 and to set uuid for the user you must to include a view part of this package to your site template. After initialization will be declared a global JavaScript variable with the name `lavoter_uuid`.
+To initialize the [fingerprintjs2](http://valve.github.io/fingerprintjs2/) and to set an uuid for the user you must to include a view part of this package to your site template. After the [fingerprintjs2](http://valve.github.io/fingerprintjs2/) initialized will be declared a global JavaScript variable with the name `lavoter_uuid`.
+
 For example:
 
 ```html
@@ -48,7 +49,7 @@ For example:
 </html>
 ```
 
-At last include the cookie name within `app/Http/Middleware/EncryptCookies.php`.
+To finish installing add a cookie name within `app/Http/Middleware/EncryptCookies.php`.
 For example:
 
 ```php
