@@ -2,8 +2,9 @@
 
 namespace Zvermafia\Lavoter\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Schema;
 
 /**
  * Class Vote.
@@ -70,6 +71,50 @@ class Vote extends Model
     }
 
     /**
+     * @param  Model  $voteable
+     * @param  int    $value
+     * @return bool
+     */
+    protected static function cast(Model $voteable, $value = 1, $uuid = null)
+    {
+        if ( ! $voteable->exists || ! $uuid || ! Uuid::whereuuid($uuid)->first()) {
+            return false;
+        }
+
+        $vote = static::firstOrCreate([
+            'voteable_id'   => $voteable->id,
+            'voteable_type' => get_class($voteable),
+            'uuid'          => $uuid,
+        ]);
+
+        /**
+         * If step_back parameter is ture
+         */
+        if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value)
+        {
+            $vote->delete();
+
+            return ture;
+        }
+
+        // Update vote value
+        $vote->update['value' => $value]);
+
+        /**
+         * If the given model has a vote_total column
+         * then fill it with aggregate function sum('value')
+         */
+        if (Schema::hasColumn($voteable->getTable(), 'vote_total'))
+        {
+            $voteable = $voteable->fresh(['votes']);
+            $voteable->vote_total = $voteable->votes->sum('value');
+            $voteable->save();
+        }
+
+        return $vote;
+    }
+
+    /**
      * @param  Model   $voteable
      * @param  string  $uuid
      * @return boolean
@@ -105,49 +150,4 @@ class Vote extends Model
         return $voteable->first() ? true : false;
     }
 
-    /**
-     * @param  Model  $voteable
-     * @param  int    $value
-     * @return bool
-     */
-    protected static function cast(Model $voteable, $value = 1, $uuid = null)
-    {
-        if ( ! $voteable->exists || ! $uuid || ! uuid::whereuuid($uuid)->first()) {
-            return false;
-        }
-
-        $vote = static::firstOrCreate([
-            'voteable_id'   => $voteable->id,
-            'voteable_type' => get_class($voteable),
-            'uuid'          => $uuid,
-        ]);
-
-        /**
-         * If step_back parameter is ture
-         */
-        if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value)
-        {
-            $vote->delete();
-
-            return null;
-        }
-
-        $vote->value = $value;
-        $vote = $vote->voteable()
-                    ->associate($voteable)
-                    ->save();
-
-        /**
-         * If the given model has a vote_total column
-         * then fill it with aggregate function sum('value')
-         */
-        if (\Schema::hasColumn($voteable->getTable(), 'vote_total'))
-        {
-            $voteable = $voteable->fresh(['votes']);
-            $voteable->vote_total = $voteable->votes->sum('value');
-            $voteable->save();
-        }
-
-        return $vote;
-    }
 }
