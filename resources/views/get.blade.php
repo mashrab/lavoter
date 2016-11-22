@@ -4,29 +4,29 @@
     /**
      * The fingerprintjs2 init
      */
-    var uuid;
+    var lavoter_uuid;
     
     $(document).ready(function ()
     {
         new Fingerprint2().get(function(result, components)
         {
-            uuid = result;
+            lavoter_uuid = result;
 
             // Run the check method.
-            uuidCheckOrCreate(uuid);
+            uuidCheckOrCreate(lavoter_uuid);
         });
     });
 
     /**
-     * Check uuid
+     * Check lavoter_uuid
      */
-    function uuidCheckOrCreate (uuid) {
+    function uuidCheckOrCreate (lavoter_uuid) {
         $.ajax({
             url: '{{ route("lavoter.check_or_create") }}',
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
-                uuid: uuid
+                lavoter_uuid: lavoter_uuid
             },
             dataType: 'json'
         })
