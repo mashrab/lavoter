@@ -9,15 +9,14 @@ use Zvermafia\Lavoter\Models\Uuid;
 class LavoterController extends Controller
 {
 	/**
-	 * @var \Zvermafia\Lavoter\Models\Uuid
+	 * @var Uuid
 	 */
 	private $uuids;
 
 	/**
 	 * Magic method.
 	 * 
-	 * @param \Zvermafia\Lavoter\Models\Uuid $uuids
-	 *
+	 * @param  Uuid  $uuids
 	 * @return void
 	 */
 	public function __construct(Uuid $uuids)
@@ -26,19 +25,18 @@ class LavoterController extends Controller
 	}
 
 	/**
-	 * Check a given uuid to exists in DB
-	 * or create if the uuid isn't exists in DB
+	 * Check the given uuid to exists in DB
+	 * or create if the uuid isn't exists in DB.
 	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * 
+	 * @param  Request  $request
 	 * @return Illuminate\Http\Response
 	 */
 	public function сheckOrCreate(Request $request)
 	{
-		$item = $this->uuids->firstOrCreate(['uuid' => $request->uuid]);
+		$item = $this->uuids->firstOrCreate(['uuid' => $request->lavoter_uuid]);
 
 		return response()->json([
-			'uuid' => $request->uuid,
+			'lavoter_uuid' => $request->lavoter_uuid,
 		], 200);
 	}
 }
