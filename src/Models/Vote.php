@@ -88,13 +88,13 @@ class Vote extends Model
         ]);
 
         /**
-         * If step_back parameter is ture
+         * If step_back parameter is true
          */
         if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value)
         {
             $vote->delete();
 
-            return ture;
+            return true;
         }
 
         // Update vote value
