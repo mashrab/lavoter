@@ -1,6 +1,6 @@
 {
     "name": "zvermafia/lavoter",
-    "description": "Voteable Polymorphic Eloquent Models for Laravel 5 without user authentication",
+    "description": "Voteable Polymorphic Eloquent Models for Laravel 5 without user authentication. This means that for the identification of the user, we will use the fingerprintjs2 instead of authorization on the site.",
     "license": "MIT",
     "authors": [
         {
