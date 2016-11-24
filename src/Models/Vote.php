@@ -98,7 +98,7 @@ class Vote extends Model
         }
 
         // Update vote value
-        $vote->update['value' => $value]);
+        $vote->update(['value' => $value]);
 
         /**
          * If the given model has a vote_total column
@@ -140,7 +140,7 @@ class Vote extends Model
      * @param  int     $value
      * @return boolean
      */
-    public static function isAlreadyVoted(Model $voteable, $uuid = null, $value == null)
+    public static function isAlreadyVoted(Model $voteable, $uuid = null, $value = null)
     {
         $voteable->votes()->where('uuid', $uuid);
 
