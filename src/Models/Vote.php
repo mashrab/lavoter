@@ -142,12 +142,12 @@ class Vote extends Model
      */
     public static function isAlreadyVoted(Model $voteable, $uuid = null, $value = null)
     {
-        $voteable->votes()->where('uuid', $uuid);
+        $vote = $voteable->votes()
+                         ->where('uuid', $uuid)
+                         ->where('value', $value)
+                         ->first();
 
-        if ( ! is_null($value))
-            $voteable->where('value', $value);
-
-        return $voteable->first() ? true : false;
+        return $vote ? true : false;
     }
 
 }
