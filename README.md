@@ -102,38 +102,3 @@ Vote::up($article, $uuid);
 // Down-vote
 Vote::down($article, $uuid);
 ```
-
-
-## Accessors
-For convenience you can use accessors below which are realized in Voteable trait:
-
-```php
-// ...
-$article = Article::first();
-// ...
-
-$article->vote_ups; // To get count of the all vote ups
-$article->vote_total; // To get count of total votes
-$article->vote_downs; // To get count of the all vote downs
-
-```
-
-For exmaple:
-```html
-@forelse($articles as $article)
-    <article>
-        <h1>{{ $article->title }}</h1>
-        
-        <!-- Voting info -->
-        <aside>
-            <span class="vote vote-up">{{ $articel->vote_ups }}</span>
-            <span class="vote vote-total">{{ $articel->vote_total }}</span>
-            <span class="vote vote-down">{{ $articel->vote_downs }}</span>
-        </aside>
-    </article>
-@empty
-    <div class="alert alert-info">
-        No data.
-    </div>
-@endforelse
-```

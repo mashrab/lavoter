@@ -9,43 +9,23 @@ use Zvermafia\Lavoter\Models\Vote;
  */
 trait Voteable
 {
-    /**
-     * Get relation.
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
+    /** @return \Illuminate\Database\Eloquent\Relations\MorphMany */
     public function votes()
     {
         return $this->morphMany(Vote::class, 'voteable');
     }
 
-    /**
-     * Get sum of all votes for a given item of the model.
-     * 
-     * @return integer
-     */
-    public function getVoteTotalAttribute()
+    /** @return \Illuminate\Database\Eloquent\Relations\MorphMany */
+    public function voteUps()
     {
-        return $this->votes()->sum('value');
+        return $this->morphMany(Vote::class, 'voteable')
+            ->whereValue(1);
     }
 
-    /**
-     * Get count of vote ups for a given item of the model.
-     * 
-     * @return integer
-     */
-    public function getVoteUpsAttribute()
+    /** @return \Illuminate\Database\Eloquent\Relations\MorphMany */
+    public function voteDowns()
     {
-        return $this->votes()->whereValue(1)->count();
-    }
-
-    /**
-     * Get count of vote downs for a given item of the model.
-     * 
-     * @return integer
-     */
-    public function getVoteDownsAttribute()
-    {
-        return $this->votes()->whereValue(-1)->count();
+        return $this->morphMany(Vote::class, 'voteable')
+            ->whereValue(-1);
     }
 }

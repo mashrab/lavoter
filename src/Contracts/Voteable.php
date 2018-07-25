@@ -15,23 +15,16 @@ interface Voteable
     public function votes();
 
     /**
-     * Get sum of all votes for a given item of the model.
+     * Get relation.
      * 
-     * @return integer
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function getVoteTotalAttribute();
+    public function voteUps();
 
     /**
-     * Get count of vote ups for a given item of the model.
+     * Get relation.
      * 
-     * @return integer
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function getVoteUpsAttribute();
-
-    /**
-     * Get count of vote downs for a given item of the model.
-     * 
-     * @return integer
-     */
-    public function getVoteDownsAttribute();
+    public function voteDowns();
 }

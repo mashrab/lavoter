@@ -2,9 +2,9 @@
 
 namespace Zvermafia\Lavoter\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use Schema;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Vote.
@@ -77,21 +77,18 @@ class Vote extends Model
      */
     protected static function cast(Model $voteable, $value = 1, $uuid = null)
     {
-        if ( ! $voteable->exists || ! $uuid || ! Uuid::whereuuid($uuid)->first()) {
+        if ( ! $voteable->exists || ! $uuid || ! Uuid::whereuuid($uuid)->exists()) {
             return false;
         }
 
         $vote = static::firstOrCreate([
-            'voteable_id'   => $voteable->id,
+            'voteable_id' => $voteable->id,
             'voteable_type' => get_class($voteable),
-            'uuid'          => $uuid,
+            'uuid' => $uuid,
         ]);
 
-        /**
-         * If step_back parameter is true
-         */
-        if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value)
-        {
+        // If step_back parameter is true
+        if (config('lavoter.step_back') && $vote->value != 0 && $vote->value != $value) {
             $vote->delete();
 
             return true;
@@ -131,12 +128,10 @@ class Vote extends Model
      */
     public static function isAlreadyVoted(Model $voteable, $uuid = null, $value = null)
     {
-        $vote = $voteable->votes()
-                         ->where('uuid', $uuid)
-                         ->where('value', $value)
-                         ->first();
-
-        return $vote ? true : false;
+        return $voteable->votes()
+            ->where('uuid', $uuid)
+            ->where('value', $value)
+            ->exists();
     }
 
 }
