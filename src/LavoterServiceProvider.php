@@ -43,13 +43,6 @@ class LavoterServiceProvider extends ServiceProvider
          * Views
          */
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lavoter');
-        
-        /**
-         * Assets
-         */
-        $this->publishes([
-            __DIR__ . '/../public/vendor/lavoter' => public_path('vendor/lavoter'),
-        ], 'public');
     }
 
     /**
